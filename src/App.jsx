@@ -58,7 +58,7 @@ function App() {
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="glass h-[38rem] w-96 bg-[linear-gradient(172deg,rgba(2,0,36,1)_0%,rgba(9,9,121,1)_35%,rgba(0,212,255,1)_100%)]  rounded-4xl absolute z-10 ">
+      <div className="glass h-full md:h-[38rem] w-96 bg-[linear-gradient(172deg,rgba(2,0,36,1)_0%,rgba(9,9,121,1)_35%,rgba(0,212,255,1)_100%)]  rounded-4xl absolute z-10 ">
         <div className='ml-3 mt-3 size-2'><i class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
         
