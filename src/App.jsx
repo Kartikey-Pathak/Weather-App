@@ -121,7 +121,7 @@ function App() {
           <input type="text" ref={inputref} onKeyDown={(e)=>{
                     if(e.key=='Enter')search(inputref.current.value);
           }} placeholder='Enter City' id='city' className=' border-4 border-black rounded-2xl w-64 h-11 outline-0 bg-transparent text-xl font-bold text-black' />
-          <label htmlFor="city"><div className=' bg-black rounded-xl h-11 w-11 flex justify-center items-center'><i class="fa-solid fa-magnifying-glass text-2xl text-white rounded-2xl" onClick={() => { search(inputref.current.value) }} ></i></div></label>
+          <label htmlFor=""><div className=' bg-black rounded-xl h-11 w-11 flex justify-center items-center'><i class="fa-solid fa-magnifying-glass text-2xl text-white rounded-2xl" onClick={() => { search(inputref.current.value) }} ></i></div></label>
         </div>
       </div>
 
