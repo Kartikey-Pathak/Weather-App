@@ -8,11 +8,13 @@ import snow_icon from './assets/snow.png';
 import react_icon from './assets/react.svg';
 
 import { motion } from 'framer-motion';
+import Card from './Card';
+
 
 function App() {
   const inputref = useRef();
   const [weather, setWeather] = useState({});
-  const [visible,isVisible]=useState(false);
+  const [visible, isVisible] = useState(false);
   const search = async (city) => {
 
     const allIcons = {
@@ -58,13 +60,18 @@ function App() {
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="glass h-full md:h-[38rem] w-96 bg-[linear-gradient(172deg,rgba(2,0,36,1)_0%,rgba(9,9,121,1)_35%,rgba(0,212,255,1)_100%)]  rounded-4xl absolute z-10 ">
-        <div className='ml-3 mt-3 size-2'><i class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
+      <div className="glass h-full md:h-[38rem] w-96 bg-[linear-gradient(172deg,rgba(2,0,36,1)_0%,rgba(9,9,121,1)_35%,rgba(0,212,255,1)_100%)]  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } }}>
+        <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
         
-        {/* <div className='flex justify-center items-center'>
-        <div className='bg-white h-80 w-80 absolute z-30 mt-96 m-auto rounded-4xl'>helo</div>
-        </div> */}
+        {/* Card Componet */}
+        {
+          visible ?
+            <Card/>
+            :
+            null
+        }
+        {/* Card Componet */}
 
 
 
@@ -118,8 +125,8 @@ function App() {
           </motion.h1>
         </div>
         <div className=' flex justify-center items-center mt-20 gap-1'>
-          <input type="text" ref={inputref} onKeyDown={(e)=>{
-                    if(e.key=='Enter')search(inputref.current.value);
+          <input type="text" ref={inputref} onKeyDown={(e) => {
+            if (e.key == 'Enter') search(inputref.current.value);
           }} placeholder='Enter City' id='city' className=' border-4 border-black rounded-2xl w-64 h-11 outline-0 bg-transparent text-xl font-bold text-black' />
           <label htmlFor=""><div className=' bg-black rounded-xl h-11 w-11 flex justify-center items-center'><i class="fa-solid fa-magnifying-glass text-2xl text-white rounded-2xl" onClick={() => { search(inputref.current.value) }} ></i></div></label>
         </div>
