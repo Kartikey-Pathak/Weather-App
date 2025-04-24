@@ -15,6 +15,8 @@ function App() {
   const inputref = useRef();
   const [weather, setWeather] = useState({});
   const [visible, isVisible] = useState(false);
+
+  const [expanded, setExpanded] = useState(false);
   const search = async (city) => {
 
     const allIcons = {
@@ -60,19 +62,52 @@ function App() {
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="glass h-full md:h-[38rem] w-96 bg-[linear-gradient(172deg,rgba(2,0,36,1)_0%,rgba(9,9,121,1)_35%,rgba(0,212,255,1)_100%)]  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } }}>
+      <div className="h-full md:h-[38rem] w-96 bg-[#181818] rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } }}>
         <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
-        
+
         {/* Card Componet */}
         {
           visible ?
-            <Card/>
+            <Card />
             :
             null
         }
         {/* Card Componet */}
 
+        <div className='flex justify-center items-center'>
+          <motion.div
+            animate={{ width: expanded ? '320px' : '60px' }} // dynamic width
+            transition={{ type: 'spring', stiffness: 120, damping: 25 }}
+            className='flex items-center gap-1 h-11 shadow-[0_0_25px_#1F51FF] rounded-2xl bg-white overflow-hidden px-2'
+          >
+            {expanded && (
+              <input
+                type="text"
+                ref={inputref}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') search(inputref.current.value);
+                }}
+                placeholder='Enter City'
+                className='w-full h-full placeholder-shown:m-3 bg-transparent outline-none text-xl font-bold text-black'
+              />
+            )}
+            <div className='h-11 w-11 flex justify-center items-center relative'>
+              <i
+                className="fa-solid fa-magnifying-glass text-2xl text-black cursor-pointer"
+                onClick={() => {
+                  if (expanded) search(inputref.current.value);
+                  setExpanded(true);
+                }}
+              ></i>
+
+              <i
+                className="fa-solid fa-circle-arrow-left absolute -right-10 text-xl text-black hover:text-yellow-500 transition cursor-pointer"
+                onClick={() => setExpanded(!expanded)}
+              ></i>
+            </div>
+          </motion.div>
+        </div>
 
 
         <div className='flex items-center justify-center mt-10'>
@@ -88,7 +123,7 @@ function App() {
           />
 
         </div>
-        <div className='flex justify-center items-center mt-10'>
+        <div className='flex justify-center items-center mt-10 '>
           <motion.h1
             key={weather.temperature}
             initial={{ y: -50, opacity: 0 }}
@@ -124,12 +159,9 @@ function App() {
             {weather.location}
           </motion.h1>
         </div>
-        <div className=' flex justify-center items-center mt-20 gap-1'>
-          <input type="text" ref={inputref} onKeyDown={(e) => {
-            if (e.key == 'Enter') search(inputref.current.value);
-          }} placeholder='Enter City' id='city' className=' border-4 border-black rounded-2xl w-64 h-11 outline-0 bg-transparent text-xl font-bold text-black' />
-          <label htmlFor=""><div className=' bg-black rounded-xl h-11 w-11 flex justify-center items-center'><i class="fa-solid fa-magnifying-glass text-2xl text-white rounded-2xl" onClick={() => { search(inputref.current.value) }} ></i></div></label>
-        </div>
+
+
+
       </div>
 
     </div>
