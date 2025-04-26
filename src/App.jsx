@@ -7,10 +7,17 @@ import rain_icon from './assets/rain.png';
 import snow_icon from './assets/snow.png';
 import react_icon from './assets/react.svg';
 
+import cloud from './assets/clouds.mp4'
+import clear from './assets/clear.mp4'
+import rain from './assets/rain.mp4'
+import haze from './assets/haze.mp4'
+
 import { motion } from 'framer-motion';
 import Card from './Card';
 import Humid from './Humid';
 import Dot from './Dot';
+import Loader from './Loader';
+
 
 
 function App() {
@@ -19,9 +26,25 @@ function App() {
   const [visible, isVisible] = useState(false);
 
   const [expanded, setExpanded] = useState(false);
-  const [info,setInfo]=useState(false);
-  const search = async (city) => {
+  const [info, setInfo] = useState(false);
+  
+  const [display,Setdisplay]=useState({});
+   
+  const [load,setload]=useState(true);
 
+  const search = async (city) => {
+        
+     setload(true);
+
+    //Its For the Videos in the Background
+    const allvideo={
+      "Clear":clear,
+      "Clouds":cloud,
+      "Rain":rain,
+      "Haze":haze
+    }
+    
+    //It's for the icons 
     const allIcons = {
       "01d": clear_icon,
       "01n": clear_icon,
@@ -47,6 +70,8 @@ function App() {
       console.log(data);
 
       const icon = allIcons[data.weather[0].icon] || clear_icon;
+
+      const vid=allvideo[data.weather[0].main]
       setWeather({
         humidity: data.main.humidity,
         temperature: Math.floor(data.main.temp),
@@ -55,21 +80,36 @@ function App() {
         icon: icon,
         feel: data.main.feels_like,
         humidity: data.main.humidity,
-        description:data.weather[0].main
+        description: data.weather[0].main,
+        vid:vid
         
-
       })
+
+      setload(false);
 
     } catch (error) {
       console.log("Falied To Fetch", error);
     }
   }
   useEffect(() => {
-    search("delhi");
+    search("new york");
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="h-full md:h-[38rem] w-96 bg-[#181818] rounded-4xl absolute z-10 "  onClick={() => { if (visible == true) { isVisible(!visible) } if(info==true){setInfo(!info)} }  }>
+      <div className="h-full md:h-[38rem] w-96 bg-black  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } if (info == true) { setInfo(!info) } }}>
+        
+        {/* Loader Componet */}
+        {load?<Loader/>:null}
+      
+        <video
+           src={weather.vid || cloud} // fallback to cloud if no weather.vid
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute -z-10 top-0 left-0 w-full h-full object-cover"
+          onLoadedData={() => setLoading(false)}
+        ></video>
         <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
 
@@ -156,9 +196,9 @@ function App() {
           <i class="fa-solid fa-wind text-3xl text-gray-400 ml-2.5"></i>
         </div>
 
-         {/* The Info Component */}
-         {
-           info ? <Humid info={info} feel={weather.feel} humidity={weather.humidity} description={weather.description}  /> : null
+        {/* The Info Component */}
+        {
+          info ? <Humid info={info} feel={weather.feel} humidity={weather.humidity} description={weather.description} /> : null
         }
 
 
@@ -173,9 +213,9 @@ function App() {
             {weather.location}
           </motion.h1>
         </div>
-         
+
         {
-        (info==false)?<Dot info={info} setInfo={setInfo}/>:null
+          (info == false) ? <Dot info={info} setInfo={setInfo} /> : null
         }
       </div>
 
