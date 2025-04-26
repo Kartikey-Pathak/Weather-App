@@ -9,6 +9,8 @@ import react_icon from './assets/react.svg';
 
 import { motion } from 'framer-motion';
 import Card from './Card';
+import Humid from './Humid';
+import Dot from './Dot';
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
   const [visible, isVisible] = useState(false);
 
   const [expanded, setExpanded] = useState(false);
+  const [info,setInfo]=useState(false);
   const search = async (city) => {
 
     const allIcons = {
@@ -49,7 +52,11 @@ function App() {
         temperature: Math.floor(data.main.temp),
         location: data.name,
         windSpeed: data.wind.speed,
-        icon: icon
+        icon: icon,
+        feel: data.main.feels_like,
+        humidity: data.main.humidity,
+        description:data.weather[0].main
+        
 
       })
 
@@ -62,7 +69,7 @@ function App() {
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="h-full md:h-[38rem] w-96 bg-[#181818] rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } }}>
+      <div className="h-full md:h-[38rem] w-96 bg-[#181818] rounded-4xl absolute z-10 "  onClick={() => { if (visible == true) { isVisible(!visible) } if(info==true){setInfo(!info)} }  }>
         <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
 
@@ -148,6 +155,13 @@ function App() {
           </label>
           <i class="fa-solid fa-wind text-3xl text-gray-400 ml-2.5"></i>
         </div>
+
+         {/* The Info Component */}
+         {
+           info ? <Humid info={info} feel={weather.feel} humidity={weather.humidity} description={weather.description}  /> : null
+        }
+
+
         <div className='flex items-center justify-center mt-5'>
           <motion.h1
             key={weather.location}
@@ -159,9 +173,10 @@ function App() {
             {weather.location}
           </motion.h1>
         </div>
-
-
-
+         
+        {
+        (info==false)?<Dot info={info} setInfo={setInfo}/>:null
+        }
       </div>
 
     </div>
