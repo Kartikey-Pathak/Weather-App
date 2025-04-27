@@ -40,7 +40,8 @@ function App() {
     const allvideo={
       "Clear":clear,
       "Clouds":cloud,
-      "Rain":rain
+      "Rain":rain,
+      "Haze":haze
     }
     
     //It's for the icons 
