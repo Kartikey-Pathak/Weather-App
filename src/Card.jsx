@@ -22,7 +22,7 @@ function Card(){
 
                 {/* Static Texts/Info */}
                 <div>
-                  <div className='h-12 w-20 rounded-4xl flex justify-center items-center m-5'><img className='rounded-4xl' src="/assets/openweather.png" alt="" /></div>
+                  <div className='h-12 w-20 rounded-4xl flex justify-center items-center m-5'><img className='rounded-4xl' src="/openweather.png" alt="" /></div>
                   <h1 className='font-extrabold text-gray-500 m-3'>This weather app uses the</h1>
                   <h1 className='font-bold text-gray-500 m-3'><a href="https://openweathermap.org/api" className=' font-medium text-blue-500 underline'>OpenWeather Api</a><br />to fetch real-time weather data.</h1>
                   <br />
