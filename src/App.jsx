@@ -10,7 +10,7 @@ import react_icon from './assets/react.svg';
 import cloud from './assets/clouds.mp4'
 import clear from './assets/clear.mp4'
 import rain from './assets/rain.mp4'
-const haze = "/assets/haze.mp4";
+import haze from './assets/haze.mp4'
 
 import { motion } from 'framer-motion';
 import Card from './Card';
