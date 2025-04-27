@@ -108,7 +108,7 @@ function App() {
           muted
           playsInline
           className="absolute -z-10 top-0 left-0 w-full h-full object-cover"
-          onLoadedData={() => setLoading(false)}
+          onLoadedData={() => setload(false)}
         ></video>
         <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
         <br />
