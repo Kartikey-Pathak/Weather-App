@@ -110,7 +110,7 @@ function App() {
           className="absolute -z-10 top-0 left-0 w-full h-full object-cover"
           onLoadedData={() => setload(false)}
         ></video>
-        <div className='ml-3 mt-3 size-2'><i onClick={() => { isVisible(!visible) }} class="fa-brands fa-react text-blue-400 font-bold text-2xl cursor-pointer hover:scale-75 transition"></i></div>
+        <div className='ml-3 mt-3 size-2'><motion.i  onClick={() => { isVisible(!visible) }}  animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }} className="fa-brands fa-react text-blue-400 font-extrabold text-2xl cursor-pointer hover:scale-75 transition"/></div>
         <br />
 
         {/* Card Componet */}
@@ -164,7 +164,7 @@ function App() {
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
-            className="size-28"
+            className="md:size-32 size-28"
             src={weather.icon}
             alt=""
           />
