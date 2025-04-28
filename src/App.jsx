@@ -17,6 +17,7 @@ import Card from './Card';
 import Humid from './Humid';
 import Dot from './Dot';
 import Loader from './Loader';
+import Error from './Error';
 
 
 
@@ -32,6 +33,9 @@ function App() {
    
   const [load,setload]=useState(true);
   const [apiload,setapiload]=useState(false);
+
+  // State for handling error
+  const [hasError,seterror]=useState(false);
 
   const search = async (city) => {
 
@@ -88,6 +92,7 @@ function App() {
 
     } catch (error) {
       console.log("Falied To Fetch", error);
+      seterror(true);
     }
     setapiload(false);
   }
@@ -96,10 +101,14 @@ function App() {
   }, [])
   return (
     <div className='flex justify-center md:items-center min-h-screen relative'>
-      <div className="h-full md:h-[38rem] w-96 bg-black  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } if (info == true) { setInfo(!info) } }}>
+      <div className="h-full md:h-[38rem] w-96 bg-black  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } if (info == true) { setInfo(!info) } if(hasError==true){seterror(false); setapiload(false)} }}>
         
         {/* Loader Componet */}
         {load||apiload?<Loader/>:null}
+
+        {/*The Error Component*/}
+
+        {hasError?<Error seterror={seterror} hasError={hasError}/>:null}
       
         <video
            src={weather.vid || cloud} // fallback to cloud if no weather.vid
