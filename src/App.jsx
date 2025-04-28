@@ -34,6 +34,12 @@ function App() {
   const [load,setload]=useState(true);
   const [apiload,setapiload]=useState(false);
 
+  
+  // this state is specially for video loader since mobile netwoks are slow for loading video 
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+
+
+
   // State for handling error
   const [hasError,seterror]=useState(false);
 
@@ -104,7 +110,7 @@ function App() {
       <div className="h-full md:h-[38rem] w-96 bg-black  rounded-4xl absolute z-10 " onClick={() => { if (visible == true) { isVisible(!visible) } if (info == true) { setInfo(!info) } if(hasError==true){seterror(false); setapiload(false)} }}>
         
         {/* Loader Componet */}
-        {load||apiload?<Loader/>:null}
+        {load||apiload||isVideoLoading?<Loader/>:null}
 
         {/*The Error Component*/}
 
@@ -117,7 +123,7 @@ function App() {
           muted
           playsInline
           className="absolute -z-10 top-0 left-0 w-full h-full object-cover"
-          onLoadedData={() => setload(false)}
+          onLoadedData={() =>{ setload(false); setIsVideoLoading(false);}}
           
         ></video>
         <div className='ml-3 mt-3 size-2'><motion.i  onClick={() => { isVisible(!visible) }}  animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }} className="fa-brands fa-react text-blue-400 font-extrabold text-2xl cursor-pointer hover:scale-75 transition"/></div>
