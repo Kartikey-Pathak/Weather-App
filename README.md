@@ -7,7 +7,7 @@ A sleek, responsive Weather App built with React and OpenWeatherMap API. Easily 
 
 ---
 
-## 🖼️ Features
+# 🖼️ Features
 
 - 🔍 Search weather by city name
 - 📍 Get current weather conditions: temperature, humidity, wind speed, and more
